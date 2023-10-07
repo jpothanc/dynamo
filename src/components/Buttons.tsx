@@ -1,8 +1,10 @@
 import { CatalogueChangeEvent } from "../services/EventManager";
 import { useEventManager } from "../hooks/useEventManager";
+import { useAppConfig } from "../hooks/useAppConfig";
 
 export const Buttons = () => {
   const eventManager = useEventManager();
+  const appConfig = useAppConfig();
 
   const onButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     console.log("Button Clicked :" + event.target.name);
@@ -13,22 +15,21 @@ export const Buttons = () => {
     eventManager.emitEvent(eventData);
   };
   return (
-    <div>
-      <button
-        className="btn"
-        name="posts"
-        onClick={(e) => {
-          const eventData: CatalogueChangeEvent = {
-            catalogueItem: e.target.name,
-          };
-          eventManager.emitEvent(eventData);
-        }}
-      >
-        Posts
-      </button>
-      <button className="btn" name="todo" onClick={onButtonClick}>
-        ToDo
-      </button>
-    </div>
+    <>
+      <div>
+        {appConfig.getCatalogueItems().map((key) => {
+          return (
+            <button
+              className="btn"
+              key={key}
+              name={key}
+              onClick={onButtonClick}
+            >
+              {key}
+            </button>
+          );
+        })}
+      </div>
+    </>
   );
 };

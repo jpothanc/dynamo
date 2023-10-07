@@ -64,6 +64,7 @@ const DataView = () => {
   return (
     <>
       <BasicGrid
+        title={catalogueItem}
         columnDefs={columnDefs}
         rowData={rowData}
         theme={config.app.theme}

@@ -12,6 +12,11 @@
           "url": "https://jsonplaceholder.typicode.com/posts",
           "name": "posts",
           "color": "blue"
+        },
+        {
+          "url": "https://jsonplaceholder.typicode.com/comments",
+          "name": "comments",
+          "color": "blue"
         }
       ]
     }

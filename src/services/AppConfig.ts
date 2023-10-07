@@ -9,6 +9,7 @@ export interface catalogueItem {
 
 export interface IAppConfig {
   getCatalogueItem(name: string): catalogueItem | undefined;
+  getCatalogueItems(): string[];
 }
 
 @injectable()
@@ -17,6 +18,9 @@ export class AppConfig implements IAppConfig {
 
   constructor() {
     this.initCatalogues();
+  }
+  getCatalogueItems(): string[] {
+    return [...this._catalogues.keys()];
   }
 
   private initCatalogues(): void {

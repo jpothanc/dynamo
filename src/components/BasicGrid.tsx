@@ -5,12 +5,13 @@ import "ag-grid-community/styles/ag-theme-alpine.css";
 import "ag-grid-community/styles/ag-theme-material.css";
 
 type blotterProps = {
+  title: string;
   columnDefs: any;
   rowData: any;
   theme: string;
 };
 
-const BasicGrid = ({ columnDefs, rowData, theme }: blotterProps) => {
+const BasicGrid = ({ title, columnDefs, rowData, theme }: blotterProps) => {
   const containerStyle = useMemo(() => ({ width: "100%", height: "100%" }), []);
   const gridStyle = useMemo(() => ({ height: 800, width: "100%" }), []);
   const gridRef = useRef<AgGridReact>(null);
@@ -39,19 +40,22 @@ const BasicGrid = ({ columnDefs, rowData, theme }: blotterProps) => {
   // }
 
   return (
-    <div style={containerStyle}>
-      <div className={theme} style={gridStyle}>
-        <AgGridReact
-          rowData={rowData}
-          columnDefs={columnDefs}
-          defaultColDef={defaultColDef}
-          rowSelection="multiple"
-          animateRows={true}
-          ref={gridRef}
-          onSelectionChanged={() => onSelectionChanged()}
-        />
+    <>
+      <h3>{title.toUpperCase()}</h3>
+      <div style={containerStyle}>
+        <div className={theme} style={gridStyle}>
+          <AgGridReact
+            rowData={rowData}
+            columnDefs={columnDefs}
+            defaultColDef={defaultColDef}
+            rowSelection="multiple"
+            animateRows={true}
+            ref={gridRef}
+            onSelectionChanged={() => onSelectionChanged()}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
