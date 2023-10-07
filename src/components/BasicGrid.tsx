@@ -49,9 +49,10 @@ const BasicGrid = ({ title, columnDefs, rowData, theme }: blotterProps) => {
             columnDefs={columnDefs}
             defaultColDef={defaultColDef}
             rowSelection="multiple"
-            animateRows={true}
+            animateRows={false}
             ref={gridRef}
             onSelectionChanged={() => onSelectionChanged()}
+            alwaysMultiSort={false}
           />
         </div>
       </div>

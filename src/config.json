@@ -6,17 +6,17 @@
         {
           "url": "https://jsonplaceholder.typicode.com/todos",
           "name": "todo",
-          "color": "black"
+          "color": "brown"
         },
         {
           "url": "https://jsonplaceholder.typicode.com/posts",
           "name": "posts",
-          "color": "blue"
+          "color": "green"
         },
         {
           "url": "https://jsonplaceholder.typicode.com/comments",
           "name": "comments",
-          "color": "blue"
+          "color": "red"
         }
       ]
     }

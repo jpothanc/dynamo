@@ -7,23 +7,24 @@ export const Buttons = () => {
   const appConfig = useAppConfig();
 
   const onButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log("Button Clicked :" + event.target.name);
     const eventData: CatalogueChangeEvent = {
       catalogueItem: event.target.name,
     };
-
     eventManager.emitEvent(eventData);
   };
+  
   return (
     <>
       <div>
         {appConfig.getCatalogueItems().map((key) => {
+          var item = appConfig.getCatalogueItem(key);
           return (
             <button
               className="btn"
               key={key}
               name={key}
               onClick={onButtonClick}
+              style={{ backgroundColor: item?.color }}
             >
               {key}
             </button>
