@@ -1,28 +1,21 @@
 import BasicGrid from "../components/BasicGrid";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import config from "../config.json";
 import * as helperJs from "../services/Helper";
-import { useQuery } from "@tanstack/react-query";
-import { dicontainer } from "../services/Container";
-import { IAppConfig } from "../services/AppConfig";
+import * as reactQuery from "@tanstack/react-query";
 import { CatalogueChangeEvent } from "../services/EventManager";
-import { IEventManager } from "../services/EventManager";
 import { Subscription } from "rxjs";
+import { useEventManager } from "../hooks/useEventManager";
+import { useAppConfig } from "../hooks/useAppConfig";
 
 const DataView = () => {
   const [rowData, setRowData] = useState<any>([]);
   const [columnDefs, setcolumnDefs] = useState<any>([]);
   const [catalogueItem, setCatalogueItem] = useState<string>("");
   const [subscription, setsubscription] = useState<Subscription>();
-
-  const eventManager = useMemo(
-    () => dicontainer.get<IEventManager>("EventManager"),
-    []
-  );
-
-  const appConfig = useMemo(() => dicontainer.get<IAppConfig>("AppConfig"), []);
-
+  const eventManager = useEventManager();
+  const appConfig = useAppConfig();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
 
@@ -43,7 +36,7 @@ const DataView = () => {
     };
   }, [eventManager]);
 
-  const { isLoading, error, data } = useQuery({
+  const { isLoading, error, data } = reactQuery.useQuery({
     queryKey: [catalogueItem],
     queryFn: () => {
       var item = appConfig.getCatalogueItem(catalogueItem);
@@ -62,12 +55,6 @@ const DataView = () => {
 
   const param1 = queryParams.get("item");
   console.log("rendering" + param1);
-
-  // Access individual query parameters
-  // const param1 = queryParams.get("param1");
-  // const param2 = queryParams.get("param2");
-  // console.log(param1);
-  // console.log(param2);
 
   if (isLoading) return "Loading...";
   if (error) {

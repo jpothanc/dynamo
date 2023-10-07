@@ -1,25 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { CatalogueChangeEvent } from "../services/EventManager";
-import { dicontainer } from "../services/Container";
-import { IEventManager } from "../services/EventManager";
-import { useMemo } from "react";
+import { useEventManager } from "../hooks/useEventManager";
+import { Buttons } from "./Buttons";
 const NavBar = () => {
-  const eventManager = useMemo(
-    () => dicontainer.get<IEventManager>("EventManager"),
-    []
-  );
-
-  const onButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    // debugger;
-    console.log("Button Clicked :" + event.target.name);
-    const eventData: CatalogueChangeEvent = {
-      catalogueItem: event.target.name,
-    };
-
-    eventManager.emitEvent(eventData);
-  };
-
   return (
     <>
       <header className="header">
@@ -60,22 +44,7 @@ const NavBar = () => {
                 <span className="logo__text">Dynamo</span>
               </a>
             </div>
-            <div>
-              <button
-                name="posts"
-                onClick={(e) => {
-                  const eventData: CatalogueChangeEvent = {
-                    catalogueItem: e.target.name,
-                  };
-                  eventManager.emitEvent(eventData);
-                }}
-              >
-                Posts
-              </button>
-              <button name="todo" onClick={onButtonClick}>
-                ToDo
-              </button>
-            </div>
+            <Buttons />
           </div>
         </div>
       </header>
