@@ -1,0 +1,19 @@
+{
+  "app": {
+    "theme": "ag-theme-alpine-dark",
+    "datastore": {
+      "items": [
+        {
+          "url": "https://jsonplaceholder.typicode.com/todos",
+          "name": "todo",
+          "color": "black"
+        },
+        {
+          "url": "https://jsonplaceholder.typicode.com/posts",
+          "name": "posts",
+          "color": "blue"
+        }
+      ]
+    }
+  }
+}

@@ -1,7 +1,377 @@
+/*RESET*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+/*BASE STYLES*/
 body {
-  background-color: black;
-  color: aliceblue;
+  background-color: rgb(212, 219, 224);
   font-family: "inter", sans-serif;
   height: 100vh;
-  padding-top: 10px;
+  padding-top: 90px;
+}
+
+/*NORMAL STYLES*/
+.header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+}
+
+.top-bar {
+  background-color: rgb(39, 44, 51);
+}
+
+.top-bar__content {
+  --max-width: 1200px;
+  --margin: 0 auto;
+  padding: 0 30px;
+  height: 30px;
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 12px;
+  align-items: center;
+  justify-content: end;
+  column-gap: 20px;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-template-areas: "menu support";
+}
+
+.support {
+  grid-column: "support";
+  font-size: 12px;
+  display: flex;
+  column-gap: 20px;
+  justify-content: end;
+}
+.bottom-bar {
+  background-color: rgb(19, 22, 26);
+}
+
+.bottom-bar__content {
+  --max-width: 1200px;
+  --margin: 0 auto;
+  padding: 0 10px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-template-areas: "logo func";
+}
+
+.banner {
+  grid-column: logo;
+}
+
+.functions {
+  grid-column: func;
+  display: flex;
+  --column-gap: 1px;
+  justify-content: end;
+}
+
+.icon {
+  margin-right: 3px;
+  color: rgba(255, 255, 255, 0.17);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.logo__img {
+  height: 30px;
+}
+
+.logo__text {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+}
+
+.nav {
+  transition: all 0.3s ease-in-out;
+}
+
+.nav__list_f {
+  display: flex;
+  align-items: flex-start;
+  grid-column: func;
+  column-gap: 1px;
+}
+
+.nav__list {
+  display: flex;
+  align-items: flex-start;
+  column-gap: 30px;
+  grid-column: menu;
+}
+
+/* 
+shift + alt + down - copy
+alt + done to move the linw
+
+*/
+
+.nav__link {
+  color: rgba(255, 255, 255, 0.5);
+  transition: all 0.2s;
+  text-decoration: none;
+  display: flex;
+  align-items: bottom;
+  justify-content: center;
+}
+
+.nav__link:hover,
+.nav__link:focus {
+  color: rgb(26, 127, 181);
+}
+
+.btn {
+  color: #fff;
+  background-color: #0c8eec76;
+  padding: 8px 20px;
+  --border-radius: 5000px;
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.btn:hover {
+  background-color: #2b74bd;
+}
+
+.hamburger {
+  display: none;
+}
+
+.bar {
+  height: 2px;
+  width: 27px;
+  background-color: #fff;
+  margin: 5px 0;
+  opacity: 0.8;
+  transition: all 0.3s ease-in-out;
+}
+
+@media (max-width: 650px) {
+  .nav {
+    position: fixed;
+    top: 90px;
+    left: 0;
+    background-color: rgb(19, 22, 26);
+    width: 100%;
+    padding: 10px 0 20px;
+    transform: translateX(-100%);
+  }
+
+  .nav__list {
+    flex-direction: column;
+    align-items: center;
+    row-gap: 20px;
+  }
+
+  .nav__link {
+    font-size: 14px;
+  }
+
+  .btn {
+    font-size: 11px;
+    padding: 7px 17px;
+    background-color: #3e8fe0;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  @media (max-width: 360px) {
+    .top-bar__content {
+      font-size: 10px;
+      justify-content: center;
+    }
+  }
+
+  /*FOR JS*/
+  .nav--open {
+    position: fixed;
+    top: 90px;
+    left: 0;
+    background-color: rgb(19, 22, 26);
+    width: 100%;
+    padding: 10px 0 20px;
+    transform: translateX(0%) !important;
+  }
+
+  .hamburger--open .bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .hamburger--open .bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger--open .bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+}
+
+/*CONTENTS*/
+.content {
+  height: 100vh;
+  background-color: rgb(143, 182, 210);
+  font-family: "inter", sans-serif;
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  grid-template-rows: 60px 1fr;
+  grid-template-areas:
+    "side header"
+    "side main";
+}
+
+.sideBar {
+  background-color: green;
+  grid-area: side;
+}
+
+.main {
+  background-color: red;
+  grid-area: main;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 20px;
+  padding: 25px;
+  grid-template-areas:
+    "c1 c2 c3"
+    "c4 c4 c5"
+    "c4 c4 c6";
+}
+
+.headerContent {
+  background-color: blue;
+  grid-area: header;
+}
+
+.card {
+  background-color: yellow;
+  height: 20;
+}
+
+div:hover > :nth-child(1) {
+  background-repeat: repeat;
+}
+
+.card:nth-child(1) {
+  grid-area: c1;
+  transition: all 0.3s;
+}
+
+.card:nth-child(1):hover {
+  transform: scale(110%);
+}
+
+.card:nth-child(1) {
+  grid-area: c1;
+}
+
+.card:nth-child(2) {
+  grid-area: c2;
+}
+
+.card:nth-child(3) {
+  grid-area: c3;
+}
+
+.card:nth-child(4) {
+  grid-area: c4;
+}
+
+.card:nth-child(5) {
+  grid-area: c5;
+}
+
+.card:nth-child(6) {
+  grid-area: c6;
+}
+
+@media (max-width: 925px) {
+  .main {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, 200px);
+    grid-template-areas: initial;
+  }
+
+  .card {
+    grid-area: initial !important;
+  }
+}
+
+.ag-theme-alpine {
+  /* disable all borders */
+  --ag-borders: none;
+  /* then add back a border between rows */
+  --ag-row-border-style: dashed;
+  --ag-row-border-width: 5px;
+  --ag-row-border-color: rgb(150, 150, 200);
+}
+
+/* styles.css */
+.custom-select {
+  width: 200px; /* Adjust the width as needed */
+}
+
+/* Style for the container */
+.oe-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 100%;
+}
+.oe-header {
+  background-color: black;
+  color: white;
+  width: 300px;
+  padding: 10px;
+  text-align: center;
+  border: 2px solid #ccc;
+}
+
+/* Custom input styles */
+.oe-input {
+  width: 300px; /* Adjust the width as needed */
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  background-color: black;
+  color: #dfeaf7;
+  transition: border-color 0.2s;
+}
+
+/* Add a border color change on focus */
+.oe-input:focus {
+  border-color: #007bff; /* Adjust the color as needed */
+  background-color: black;
 }
