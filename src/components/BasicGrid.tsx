@@ -1,20 +1,23 @@
 import { AgGridReact } from "ag-grid-react";
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useEffect } from "react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import "ag-grid-community/styles/ag-theme-material.css";
+import { useEventManager } from "../hooks/useEventManager";
+import { globalEvent } from "../services/EventManager";
 
-type blotterProps = {
+type Props = {
   title: string;
   columnDefs: any;
   rowData: any;
   theme: string;
 };
 
-const BasicGrid = ({ title, columnDefs, rowData, theme }: blotterProps) => {
+const BasicGrid = ({ title, columnDefs, rowData, theme }: Props) => {
   const containerStyle = useMemo(() => ({ width: "100%", height: "100%" }), []);
   const gridStyle = useMemo(() => ({ height: 800, width: "100%" }), []);
   const gridRef = useRef<AgGridReact>(null);
+  const eventManager = useEventManager();
 
   const defaultColDef = useMemo(
     () => ({
@@ -24,7 +27,16 @@ const BasicGrid = ({ title, columnDefs, rowData, theme }: blotterProps) => {
     }),
     []
   );
-  // Access the grid API
+
+  useEffect(() => {
+    eventManager.globalEvent().subscribe((eventData: globalEvent) => {
+      if (eventData.name != "SELECT_CHANGE:environment") return;
+      console.log("globalEvent:BasicGrid :" + eventData.name);
+      // gridRef?.current?.api.setRowData([]);
+    });
+
+    return () => {};
+  }, []);
 
   const onSelectionChanged = () => {
     // debugger;
@@ -32,6 +44,21 @@ const BasicGrid = ({ title, columnDefs, rowData, theme }: blotterProps) => {
     console.log(selectedRows);
     // gridRef?.current?.api.applyTransaction({ add: [item] }); // Insert the row
   };
+  function handleCellDoubleClicked(params: any) {
+    const selectedValue = params.value;
+
+    // Create a temporary input element to copy the text to the clipboard
+    const tempInput = document.createElement("input");
+    tempInput.value = selectedValue;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+
+    // Copy the selected text to the clipboard
+    document.execCommand("copy");
+
+    // Remove the temporary input element
+    document.body.removeChild(tempInput);
+  }
 
   // function test() {
   //   // Insert data into the grid
@@ -53,6 +80,7 @@ const BasicGrid = ({ title, columnDefs, rowData, theme }: blotterProps) => {
             ref={gridRef}
             onSelectionChanged={() => onSelectionChanged()}
             alwaysMultiSort={false}
+            onCellDoubleClicked={handleCellDoubleClicked}
           />
         </div>
       </div>

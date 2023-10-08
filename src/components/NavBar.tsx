@@ -1,8 +1,7 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import { CatalogueChangeEvent } from "../services/EventManager";
-import { useEventManager } from "../hooks/useEventManager";
 import { Buttons } from "./Buttons";
+import { Combo } from "./Combo";
+
 const NavBar = () => {
   return (
     <>
@@ -23,6 +22,11 @@ const NavBar = () => {
                 </li>
               </ul>
             </nav>
+            <div className="list">
+              <Combo name="environment" />
+              <Combo name="applications" />
+            </div>
+
             <div className="support">
               <section className="phone">
                 <i className="fa fa-phone icon" aria-hidden="true"></i>

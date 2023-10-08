@@ -1,22 +1,41 @@
 {
   "app": {
     "theme": "ag-theme-alpine-dark",
+    "environments": {
+      "items": [
+        {
+          "name": "development",
+          "baseurl": "https://jsonplaceholder.typicode.com/todos",
+          "color": "#0066cc"
+        },
+        {
+          "name": "uat",
+          "baseurl": "https://jsonplaceholder.typicode.com/posts",
+          "color": "#145214"
+        },
+        {
+          "name": "production",
+          "baseurl": "https://jsonplaceholder.typicode.com/comments",
+          "color": "#990000"
+        }
+      ]
+    },
     "datastore": {
       "items": [
         {
           "url": "https://jsonplaceholder.typicode.com/todos",
           "name": "todo",
-          "color": "brown"
+          "color": "#0066cc"
         },
         {
           "url": "https://jsonplaceholder.typicode.com/posts",
           "name": "posts",
-          "color": "green"
+          "color": "#145214"
         },
         {
           "url": "https://jsonplaceholder.typicode.com/comments",
           "name": "comments",
-          "color": "red"
+          "color": "#990000"
         }
       ]
     }
