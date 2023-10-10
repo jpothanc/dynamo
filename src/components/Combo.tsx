@@ -1,76 +1,65 @@
-import Select from "react-select";
-import { useAppConfig } from "../hooks/useAppConfig";
-import { useState, useEffect, useMemo } from "react";
-import { useEventManager } from "../hooks/useEventManager";
-import { globalEvent } from "../services/EventManager";
-
-type selectOption = {
-  value: string;
-  label: string;
-};
+import Select, { SingleValue } from "react-select";
+import { useEffect, useMemo, useState } from "react";
+import { selectOption } from "../services/Helper";
 
 type Props = {
   name: string;
+  selectOptions: selectOption[];
+  defaultSelectedItem: SingleValue<selectOption>;
+  onSelectionChange: (selectedOption: SingleValue<selectOption>) => void;
 };
 
-export const Combo = ({ name }: Props) => {
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const appConfig = useAppConfig();
-  const eventManager = useEventManager();
+export const Combo = ({
+  name,
+  selectOptions,
+  defaultSelectedItem,
+  onSelectionChange,
+}: Props) => {
+  const options = useMemo(() => selectOptions, []);
+  const [selectectedItem, setSelectedItem] = useState<
+    SingleValue<selectOption> | undefined
+  >();
 
-  const getOptions = (name: string): any => {
-    var envs = appConfig.getEnvironments();
-    const options: selectOption[] = [];
-    envs.forEach((env) => {
-      options.push({
-        value: env.name,
-        label: env.name,
-      });
-    });
-    console.log("getOptions");
-
-    return options;
+  const handleSelectChange = (newValue: SingleValue<selectOption>) => {
+    onSelectionChange(newValue);
+    setSelectedItem(newValue);
   };
 
-  const options = useMemo(() => getOptions(name), []);
-
-  const handleSelectChange = (selectedOption: any) => {
-    setSelectedOption(selectedOption);
-    console.log(`Selected option:`, selectedOption);
-    var eventData: globalEvent = {
-      name: "SELECT_CHANGE:" + name,
-      data: selectedOption,
-    };
-    eventManager.emitGlobalEvent(eventData);
-  };
+  useEffect(() => {
+    if (selectectedItem == undefined) handleSelectChange(defaultSelectedItem);
+  }, []);
 
   return (
-    <>
+    <div>
       <Select
         name={name}
         id={name}
         options={options}
+        value={selectectedItem}
         styles={{
           control: (baseStyles: any, state: any) => ({
             ...baseStyles,
-            borderColor: state.isFocused ? "red" : "black",
+            borderColor: state.isFocused ? "red" : "rgb(164, 168, 171)",
             width: 200,
+            height: 10,
+            background: "rgb(39, 44, 51)",
           }),
           singleValue: (provided, state) => ({
             ...provided,
-            color: "black",
+            color: "white",
           }),
           menu: (provided) => ({
             ...provided,
-            color: "black",
+            color: "white",
             position: "absolute",
             top: "-10%", // Adjust this value as needed to control the distance above the input
             left: 0, // You can adjust left and right to control horizontal positioning
             right: 0,
+            background: "rgb(39, 44, 51)",
           }),
         }}
         onChange={handleSelectChange} // Set the onChange callback
       />
-    </>
+    </div>
   );
 };

@@ -8,39 +8,65 @@ import { CatalogueChangeEvent } from "../services/EventManager";
 import { Subscription } from "rxjs";
 import { useEventManager } from "../hooks/useEventManager";
 import { useAppConfig } from "../hooks/useAppConfig";
+import { useGlobalStates } from "../hooks/useGlobalStates";
 
 const DataView = () => {
   const [rowData, setRowData] = useState<any>([]);
   const [columnDefs, setcolumnDefs] = useState<any>([]);
-  const [catalogueItem, setCatalogueItem] = useState<string>("");
+  const [catalogue, setCatalogue] = useState<CatalogueChangeEvent | undefined>(
+    undefined
+  );
   const [subscription, setsubscription] = useState<Subscription>();
   const eventManager = useEventManager();
   const appConfig = useAppConfig();
+  const globalStates = useGlobalStates();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
 
   useEffect(() => {
-    console.log("useEffect");
+    console.log("first");
     setsubscription(
       eventManager
         .catalogueChangeEvent()
-        .subscribe((ev: CatalogueChangeEvent) => {
-          console.log("Catalogue Change Event Received : " + ev.catalogueItem);
-          setCatalogueItem(ev.catalogueItem);
+        .subscribe((catalogue: CatalogueChangeEvent) => {
+          console.log(
+            "Catalogue Change Event Received : " +
+              catalogue.catalogue +
+              catalogue.catalogueItem
+          );
+          setCatalogue(catalogue);
         })
     );
 
     return () => {
-      console.log("unsubscribe events");
       subscription?.unsubscribe();
     };
   }, [eventManager]);
 
+  const queryKey =
+    globalStates.getEnvironment() +
+    ":" +
+    catalogue?.catalogue +
+    ":" +
+    catalogue?.catalogueItem;
+
   const { isLoading, error, data } = reactQuery.useQuery({
-    queryKey: [catalogueItem],
+    queryKey: [queryKey],
     queryFn: () => {
-      var item = appConfig.getCatalogueItem(catalogueItem);
-      return helperJs.wait(1).then(() => helperJs.getData(item?.url));
+      if (
+        catalogue?.catalogue != undefined &&
+        catalogue?.catalogueItem != undefined
+      ) {
+        console.log(catalogue?.catalogue + "->" + catalogue?.catalogueItem);
+        var item = appConfig.getCatalogueItem(
+          catalogue?.catalogue,
+          catalogue?.catalogueItem
+        );
+        var env = appConfig.getEnvironment(globalStates.getEnvironment());
+        return helperJs
+          .wait(1)
+          .then(() => helperJs.getData(env?.baseurl, item?.url));
+      }
     },
   });
 
@@ -49,12 +75,16 @@ const DataView = () => {
       setRowData(data);
       const keys = Object.keys(data[0]);
       setcolumnDefs(helperJs.toColumnDefs(keys));
-      window.history.pushState(null, "", `?item=${catalogueItem}`);
+      window.history.pushState(
+        null,
+        "",
+        `?catalogue=${catalogue?.catalogue}&catalogueItem=${catalogue?.catalogueItem}`
+      );
     }
   }, [data]);
 
-  const param1 = queryParams.get("item");
-  console.log("rendering" + param1);
+  //const param1 = queryParams.get("item");
+  //console.log("rendering" + param1);
 
   if (isLoading) return "Loading...";
   if (error) {
@@ -64,7 +94,7 @@ const DataView = () => {
   return (
     <>
       <BasicGrid
-        title={catalogueItem}
+        title={queryKey}
         columnDefs={columnDefs}
         rowData={rowData}
         theme={config.app.theme}

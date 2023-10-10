@@ -2,11 +2,17 @@ import { Subject } from "rxjs";
 import { injectable } from "inversify";
 
 export type CatalogueChangeEvent = {
+  catalogue: string;
   catalogueItem: string;
 };
+export enum EventType {
+  Environment_Change = 1,
+  Catalogue_Change = 2,
+}
 
 export type globalEvent = {
-  name: string;
+  source: string;
+  eventType: EventType;
   data: any;
 };
 

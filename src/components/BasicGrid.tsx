@@ -4,7 +4,7 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import "ag-grid-community/styles/ag-theme-material.css";
 import { useEventManager } from "../hooks/useEventManager";
-import { globalEvent } from "../services/EventManager";
+import { EventType, globalEvent } from "../services/EventManager";
 
 type Props = {
   title: string;
@@ -29,10 +29,13 @@ const BasicGrid = ({ title, columnDefs, rowData, theme }: Props) => {
   );
 
   useEffect(() => {
-    eventManager.globalEvent().subscribe((eventData: globalEvent) => {
-      if (eventData.name != "SELECT_CHANGE:environment") return;
-      console.log("globalEvent:BasicGrid :" + eventData.name);
-      // gridRef?.current?.api.setRowData([]);
+    eventManager.globalEvent().subscribe((event: globalEvent) => {
+      if (
+        event.eventType == EventType.Catalogue_Change ||
+        event.eventType == EventType.Environment_Change
+      ) {
+        gridRef?.current?.api.setRowData([]);
+      }
     });
 
     return () => {};

@@ -5,37 +5,56 @@
       "items": [
         {
           "name": "development",
-          "baseurl": "https://jsonplaceholder.typicode.com/todos",
+          "baseurl": "https://jsonplaceholder.typicode.com/",
           "color": "#0066cc"
         },
         {
           "name": "uat",
-          "baseurl": "https://jsonplaceholder.typicode.com/posts",
+          "baseurl": "https://jsonplaceholder.typicode.com/",
           "color": "#145214"
         },
         {
           "name": "production",
-          "baseurl": "https://jsonplaceholder.typicode.com/comments",
+          "baseurl": "https://jsonplaceholder.typicode.com/",
           "color": "#990000"
         }
       ]
     },
-    "datastore": {
+    "catalogues": {
       "items": [
         {
-          "url": "https://jsonplaceholder.typicode.com/todos",
-          "name": "todo",
-          "color": "#0066cc"
+          "name": "trading",
+          "description": "todo",
+          "active": true,
+          "catalogueItems": [
+            {
+              "url": "todos",
+              "name": "todo",
+              "color": "#0066cc"
+            },
+            {
+              "url": "posts",
+              "name": "posts",
+              "color": "#145214"
+            },
+            {
+              "url": "comments",
+              "name": "comments",
+              "color": "#990000"
+            }
+          ]
         },
         {
-          "url": "https://jsonplaceholder.typicode.com/posts",
-          "name": "posts",
-          "color": "#145214"
-        },
-        {
-          "url": "https://jsonplaceholder.typicode.com/comments",
-          "name": "comments",
-          "color": "#990000"
+          "name": "baskets",
+          "description": "todo",
+          "active": true,
+          "catalogueItems": [
+            {
+              "url": "todos",
+              "name": "todo",
+              "color": "#0066cc"
+            }
+          ]
         }
       ]
     }

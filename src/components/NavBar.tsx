@@ -1,8 +1,36 @@
 import { Link } from "react-router-dom";
 import { Buttons } from "./Buttons";
 import { Combo } from "./Combo";
+import * as helperJs from "../services/Helper";
+import { useAppConfig } from "../hooks/useAppConfig";
+import { selectOption } from "../services/Helper";
+import { EventType, globalEvent } from "../services/EventManager";
+import { useEventManager } from "../hooks/useEventManager";
+import { useGlobalStates } from "../hooks/useGlobalStates";
+import { SingleValue } from "react-select";
 
 const NavBar = () => {
+  const appConfig = useAppConfig();
+  const eventManager = useEventManager();
+  const globalStates = useGlobalStates();
+
+  const handleSelectionChange = (
+    source: string,
+    eventType: EventType,
+    selectedOption: SingleValue<selectOption>
+  ) => {
+    var eventData: globalEvent = {
+      source: source,
+      eventType: eventType,
+      data: selectedOption,
+    };
+
+    eventManager.emitGlobalEvent(eventData);
+    //global states subscring to the global event some how does not
+    //update the data, hence calling it explicitly. Will look at later.
+    globalStates.onGlobalEvent(eventData);
+  };
+
   return (
     <>
       <header className="header">
@@ -23,8 +51,34 @@ const NavBar = () => {
               </ul>
             </nav>
             <div className="list">
-              <Combo name="environment" />
-              <Combo name="applications" />
+              <Combo
+                name="catalogue"
+                selectOptions={helperJs.getCatalogueOptions(
+                  appConfig.getCatalogues()
+                )}
+                defaultSelectedItem={helperJs.getDefaultCatalogue()}
+                onSelectionChange={(selectOption) =>
+                  handleSelectionChange(
+                    "catalogue",
+                    EventType.Catalogue_Change,
+                    selectOption
+                  )
+                }
+              />
+              <Combo
+                name="environment"
+                selectOptions={helperJs.getEnvOptions(
+                  appConfig.getEnvironments()
+                )}
+                defaultSelectedItem={helperJs.getDefaultEnvironment()}
+                onSelectionChange={(selectOption) =>
+                  handleSelectionChange(
+                    "catalogue",
+                    EventType.Environment_Change,
+                    selectOption
+                  )
+                }
+              />
             </div>
 
             <div className="support">

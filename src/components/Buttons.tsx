@@ -1,34 +1,44 @@
-import { CatalogueChangeEvent } from "../services/EventManager";
+import { CatalogueChangeEvent, EventType } from "../services/EventManager";
 import { useEventManager } from "../hooks/useEventManager";
 import { useAppConfig } from "../hooks/useAppConfig";
 import StyledButton from "../globalStyles";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { globalEvent } from "../services/EventManager";
+import { Subscription } from "rxjs";
 
 export const Buttons = () => {
+  const [subscription, setsubscription] = useState<Subscription>();
+  const [catalogue, setCatalogue] = useState("");
   const eventManager = useEventManager();
   const appConfig = useAppConfig();
 
   const onButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const eventData: CatalogueChangeEvent = {
+      catalogue: catalogue,
       catalogueItem: event.target.name,
     };
     eventManager.emitEvent(eventData);
   };
 
   useEffect(() => {
-    eventManager.globalEvent().subscribe((eventData: globalEvent) => {
-      console.log("globalEvent:Buttons:" + eventData.name);
-    });
+    setsubscription(
+      eventManager.globalEvent().subscribe((event: globalEvent) => {
+        if (event.eventType == EventType.Catalogue_Change) {
+          setCatalogue(event.data.value);
+        }
+      })
+    );
 
-    return () => {};
+    return () => {
+      subscription?.unsubscribe();
+    };
   }, []);
 
   return (
     <>
       <div>
-        {appConfig.getCatalogueItems().map((key) => {
-          var item = appConfig.getCatalogueItem(key);
+        {appConfig.getCatalogueItems(catalogue)?.map((key) => {
+          var item = appConfig.getCatalogueItem(catalogue, key);
           return (
             <StyledButton
               $backColor={item?.color}
