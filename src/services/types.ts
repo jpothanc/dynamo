@@ -12,13 +12,13 @@ export type catalogueItem = {
 export type environment = {
   name: string;
   baseurl: string;
-  color: string;
 };
 
 export type catalogue = {
   name: string;
   description: string;
   active: boolean;
+  environments: environment[];
   catalogueItems: catalogueItem[];
 };
 

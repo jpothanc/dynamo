@@ -7,7 +7,7 @@ import {
   EventType,
   globalEvent,
   CatalogueChangeEvent,
-} from "../services/types";
+} from "../services/Types";
 
 export const Buttons = () => {
   const [subscription, setsubscription] = useState<Subscription>();

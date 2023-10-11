@@ -1,8 +1,7 @@
 import { injectable, inject } from "inversify";
 import config from "../config.json";
 import { EventManager } from "./EventManager";
-import { environment, catalogue, catalogueItem } from "./types";
-
+import { environment, catalogue, catalogueItem } from "./Types";
 
 export interface IAppConfig {
   getCatalogueItem(catalogue: string, name: string): catalogueItem | undefined;
@@ -28,12 +27,13 @@ export class AppConfig implements IAppConfig {
   }
   private initCatalogues(): void {
     const data: catalogue[] = config.app.catalogues.items;
+    console.log("initCatalogues");
 
     data.forEach((app) => {
       if (!this._catalogue.has(app.name) && app.active) {
         this._catalogue.set(app.name, app);
 
-        app.catalogueItems.forEach((item) => {
+        app.catalogueItems?.forEach((item) => {
           if (!this._catalogueItems.has(app.name)) {
             var map = new Map<string, catalogueItem>();
             map.set(item.name, item);
@@ -42,12 +42,20 @@ export class AppConfig implements IAppConfig {
             this._catalogueItems.get(app.name)?.set(item.name, item);
           }
         });
+
+        //override/set environments, if any
+        app.environments?.forEach((item) => {
+          if (this._environments.has(item.name)) {
+            this._environments.delete(item.name);
+          }
+          this._environments.set(item.name, item);
+        });
       }
     });
   }
 
   private initEnvironments(): void {
-    const data: environment[] = config.app.environments.items;
+    const data: environment[] = config.app.environments;
 
     data.forEach((item) => {
       if (!this._environments.has(item.name)) {

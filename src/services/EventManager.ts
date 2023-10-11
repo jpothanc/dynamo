@@ -1,6 +1,6 @@
 import { Subject } from "rxjs";
 import { injectable } from "inversify";
-import { globalEvent, CatalogueChangeEvent } from "./types";
+import { globalEvent, CatalogueChangeEvent } from "./Types";
 
 export interface IEventManager {
   catalogueChangeEvent(): Subject<CatalogueChangeEvent>;

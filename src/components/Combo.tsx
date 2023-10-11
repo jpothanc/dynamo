@@ -1,6 +1,6 @@
 import Select, { SingleValue } from "react-select";
 import { useEffect, useMemo, useState } from "react";
-import { selectOption } from "../services/types";
+import { selectOption } from "../services/Types";
 
 type Props = {
   name: string;

@@ -1,6 +1,6 @@
 import { dicontainer } from "../services/Container";
 import { IGlobalStates } from "../services/GlobalStates";
-import { environment, selectOption } from "./types";
+import { environment, selectOption } from "./Types";
 
 export function toColumnDefs(cols: string[]): any {
   const colDefs: any = [];

@@ -8,7 +8,7 @@ import { Subscription } from "rxjs";
 import { useEventManager } from "../hooks/useEventManager";
 import { useAppConfig } from "../hooks/useAppConfig";
 import { useGlobalStates } from "../hooks/useGlobalStates";
-import { CatalogueChangeEvent } from "../services/types";
+import { CatalogueChangeEvent } from "../services/Types";
 
 const DataView = () => {
   const [rowData, setRowData] = useState<any>([]);

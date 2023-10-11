@@ -4,7 +4,7 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import "ag-grid-community/styles/ag-theme-material.css";
 import { useEventManager } from "../hooks/useEventManager";
-import { EventType, globalEvent } from "../services/types";
+import { EventType, globalEvent } from "../services/Types";
 
 type Props = {
   title: string;
@@ -15,7 +15,7 @@ type Props = {
 
 const BasicGrid = ({ title, columnDefs, rowData, theme }: Props) => {
   const containerStyle = useMemo(() => ({ width: "100%", height: "100%" }), []);
-  const gridStyle = useMemo(() => ({ height: 750, width: "100%" }), []);
+  const gridStyle = useMemo(() => ({ height: 800, width: "100%" }), []);
   const gridRef = useRef<AgGridReact>(null);
   const eventManager = useEventManager();
 
@@ -86,7 +86,7 @@ const BasicGrid = ({ title, columnDefs, rowData, theme }: Props) => {
             tooltipHideDelay={1000}
           />
         </div>
-        <h6>{title}</h6>
+        <h6 className="footer">{title}</h6>
       </div>
     </>
   );
