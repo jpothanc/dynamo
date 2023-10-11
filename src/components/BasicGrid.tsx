@@ -1,5 +1,5 @@
 import { AgGridReact } from "ag-grid-react";
-import { useMemo, useRef, useEffect } from "react";
+import { useMemo, useRef, useEffect, useState } from "react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import "ag-grid-community/styles/ag-theme-material.css";
@@ -12,10 +12,15 @@ type Props = {
   rowData: any;
   theme: string;
 };
+const offset = 120;
 
 const BasicGrid = ({ title, columnDefs, rowData, theme }: Props) => {
-  const containerStyle = useMemo(() => ({ width: "100%", height: "100%" }), []);
-  const gridStyle = useMemo(() => ({ height: 800, width: "100%" }), []);
+  const [gridHeight, setGridHeight] = useState(window.innerHeight - offset);
+  const containerStyle = useMemo(
+    () => ({ width: { gridHeight }, height: "100%" }),
+    []
+  );
+
   const gridRef = useRef<AgGridReact>(null);
   const eventManager = useEventManager();
 
@@ -26,6 +31,23 @@ const BasicGrid = ({ title, columnDefs, rowData, theme }: Props) => {
       cellStyle: { fontSize: "12px" },
     }),
     []
+  );
+  useEffect(() => {
+    function handleResize() {
+      setGridHeight(window.innerHeight - offset);
+      console.log("window ht" + window.innerHeight);
+    }
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const gridStyle = useMemo(
+    () => ({ height: gridHeight + "px", width: "100%" }),
+    [gridHeight]
   );
 
   useEffect(() => {
@@ -72,7 +94,10 @@ const BasicGrid = ({ title, columnDefs, rowData, theme }: Props) => {
   return (
     <>
       <div style={containerStyle}>
-        <div className={theme} style={gridStyle}>
+        <div
+          className={theme}
+          style={{ height: gridHeight + "px", width: "100%" }}
+        >
           <AgGridReact
             rowData={rowData}
             columnDefs={columnDefs}
@@ -86,7 +111,7 @@ const BasicGrid = ({ title, columnDefs, rowData, theme }: Props) => {
             tooltipHideDelay={1000}
           />
         </div>
-        <h6 className="footer">{title}</h6>
+        <footer className="footer">{title}</footer>
       </div>
     </>
   );

@@ -45,9 +45,9 @@ const DataView = () => {
 
   const queryKey =
     globalStates.getEnvironment() +
-    ":" +
+    "|" +
     catalogue?.catalogue +
-    ":" +
+    "|" +
     catalogue?.catalogueItem;
 
   // const queryClient = reactQuery.useQueryClient();

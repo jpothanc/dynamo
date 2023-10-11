@@ -16,7 +16,7 @@ ul {
 
 /*BASE STYLES*/
 body {
-  background-color: rgb(164, 168, 171);
+  background-color: rgb(39, 44, 51);
   font-family: "inter", sans-serif;
   height: 100vh;
   padding-top: 100px;
@@ -31,9 +31,17 @@ body {
 }
 footer {
   position: absolute;
-  bottom: 10;
+  bottom: 0;
+  height: 20;
   left: 0;
   right: 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.35);
+  display: flex;
+  justify-content: end;
+  padding: 5px 10px;
+  align-items: top;
 }
 .top-bar {
   background-color: rgb(39, 44, 51);
