@@ -8,6 +8,7 @@ export const StyledButton = styled.button`
   text-transform: uppercase;
   font-weight: 500;
   font-family: "inter", sans-serif;
+  border: none;
   transition: background-color 0.3s ease; /* Add a smooth transition */
 
   // &:hover {

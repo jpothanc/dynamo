@@ -1,25 +1,10 @@
 import { Subject } from "rxjs";
 import { injectable } from "inversify";
-
-export type CatalogueChangeEvent = {
-  catalogue: string;
-  catalogueItem: string;
-};
-export enum EventType {
-  Environment_Change = 1,
-  Catalogue_Change = 2,
-}
-
-export type globalEvent = {
-  source: string;
-  eventType: EventType;
-  data: any;
-};
+import { globalEvent, CatalogueChangeEvent } from "./types";
 
 export interface IEventManager {
   catalogueChangeEvent(): Subject<CatalogueChangeEvent>;
   emitEvent(data: CatalogueChangeEvent): void;
-
   globalEvent(): Subject<any>;
   emitGlobalEvent(data: globalEvent): void;
 }

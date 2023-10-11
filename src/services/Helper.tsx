@@ -1,16 +1,14 @@
-import { environment } from "../services/AppConfig";
 import { dicontainer } from "../services/Container";
 import { IGlobalStates } from "../services/GlobalStates";
-export type selectOption = {
-  value: string;
-  label: string;
-};
+import { environment, selectOption } from "./types";
 
 export function toColumnDefs(cols: string[]): any {
   const colDefs: any = [];
   cols.forEach((c) => {
     colDefs.push({
       field: c,
+      resizable: true,
+      tooltipField: c,
     });
   });
   return colDefs;

@@ -4,11 +4,11 @@ import { useLocation } from "react-router-dom";
 import config from "../config.json";
 import * as helperJs from "../services/Helper";
 import * as reactQuery from "@tanstack/react-query";
-import { CatalogueChangeEvent } from "../services/EventManager";
 import { Subscription } from "rxjs";
 import { useEventManager } from "../hooks/useEventManager";
 import { useAppConfig } from "../hooks/useAppConfig";
 import { useGlobalStates } from "../hooks/useGlobalStates";
+import { CatalogueChangeEvent } from "../services/types";
 
 const DataView = () => {
   const [rowData, setRowData] = useState<any>([]);
@@ -50,6 +50,10 @@ const DataView = () => {
     ":" +
     catalogue?.catalogueItem;
 
+  // const queryClient = reactQuery.useQueryClient();
+
+  // queryClient.invalidateQueries({ queryKey: [queryKey] });
+
   const { isLoading, error, data } = reactQuery.useQuery({
     queryKey: [queryKey],
     queryFn: () => {
@@ -88,7 +92,8 @@ const DataView = () => {
 
   if (isLoading) return "Loading...";
   if (error) {
-    return <div>Error: {error.message}</div>;
+    console.log(error.message);
+    return <div></div>;
   }
 
   return (

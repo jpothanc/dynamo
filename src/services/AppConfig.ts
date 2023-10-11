@@ -1,24 +1,8 @@
 import { injectable, inject } from "inversify";
 import config from "../config.json";
-import { EventManager, globalEvent } from "./EventManager";
+import { EventManager } from "./EventManager";
+import { environment, catalogue, catalogueItem } from "./types";
 
-export type catalogueItem = {
-  url: string;
-  name: string;
-  color: string;
-};
-
-export type environment = {
-  name: string;
-  baseurl: string;
-  color: string;
-};
-export type catalogue = {
-  name: string;
-  description: string;
-  active: boolean;
-  catalogueItems: catalogueItem[];
-};
 
 export interface IAppConfig {
   getCatalogueItem(catalogue: string, name: string): catalogueItem | undefined;

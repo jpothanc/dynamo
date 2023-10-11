@@ -1,10 +1,13 @@
-import { CatalogueChangeEvent, EventType } from "../services/EventManager";
 import { useEventManager } from "../hooks/useEventManager";
 import { useAppConfig } from "../hooks/useAppConfig";
 import StyledButton from "../globalStyles";
 import { useEffect, useState } from "react";
-import { globalEvent } from "../services/EventManager";
 import { Subscription } from "rxjs";
+import {
+  EventType,
+  globalEvent,
+  CatalogueChangeEvent,
+} from "../services/types";
 
 export const Buttons = () => {
   const [subscription, setsubscription] = useState<Subscription>();
