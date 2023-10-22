@@ -1,8 +1,7 @@
 import { useEventManager } from "../hooks/useEventManager";
 import { useAppConfig } from "../hooks/useAppConfig";
-import StyledButton from "../globalStyles";
 import { useEffect, useState } from "react";
-import { Subscription } from "rxjs";
+
 import {
   EventType,
   globalEvent,
@@ -10,27 +9,26 @@ import {
 } from "../services/Types";
 
 export const Buttons = () => {
-  const [subscription, setsubscription] = useState<Subscription>();
-  const [catalogue, setCatalogue] = useState("");
+  const [catalogue, setCatalogue] = useState("trading");
   const eventManager = useEventManager();
   const appConfig = useAppConfig();
 
   const onButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const eventData: CatalogueChangeEvent = {
       catalogue: catalogue,
-      catalogueItem: event.target.name,
+      catalogueItem: (event.target as HTMLInputElement).name,
     };
     eventManager.emitEvent(eventData);
   };
 
   useEffect(() => {
-    setsubscription(
-      eventManager.globalEvent().subscribe((event: globalEvent) => {
+    const subscription = eventManager
+      .globalEvent()
+      .subscribe((event: globalEvent) => {
         if (event.eventType == EventType.Catalogue_Change) {
           setCatalogue(event.data.value);
         }
-      })
-    );
+      });
 
     return () => {
       subscription?.unsubscribe();
@@ -43,15 +41,17 @@ export const Buttons = () => {
         {appConfig.getCatalogueItems(catalogue)?.map((key) => {
           var item = appConfig.getCatalogueItem(catalogue, key);
           return (
-            <StyledButton
-              $backColor={item?.color}
-              $color="white"
+            <button
+              className="btn"
+              style={{
+                background: item?.color,
+              }}
               key={key}
               name={key}
-              onClick={onButtonClick}
+              onClick={(e) => onButtonClick(e)}
             >
               {key}
-            </StyledButton>
+            </button>
           );
         })}
       </div>

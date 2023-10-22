@@ -16,10 +16,10 @@ const offset = 120;
 
 const BasicGrid = ({ title, columnDefs, rowData, theme }: Props) => {
   const [gridHeight, setGridHeight] = useState(window.innerHeight - offset);
-  const containerStyle = useMemo(
-    () => ({ width: { gridHeight }, height: "100%" }),
-    []
-  );
+  // const containerStyle = useMemo(
+  //   () => ({ width: { gridHeight }, height: "100%" }),
+  //   []
+  // );
 
   const gridRef = useRef<AgGridReact>(null);
   const eventManager = useEventManager();
@@ -45,10 +45,10 @@ const BasicGrid = ({ title, columnDefs, rowData, theme }: Props) => {
     };
   }, []);
 
-  const gridStyle = useMemo(
-    () => ({ height: gridHeight + "px", width: "100%" }),
-    [gridHeight]
-  );
+  // const gridStyle = useMemo(
+  //   () => ({ height: gridHeight + "px", width: "100%" }),
+  //   [gridHeight]
+  // );
 
   useEffect(() => {
     eventManager.globalEvent().subscribe((event: globalEvent) => {
@@ -93,7 +93,7 @@ const BasicGrid = ({ title, columnDefs, rowData, theme }: Props) => {
 
   return (
     <>
-      <div style={containerStyle}>
+      <div>
         <div
           className={theme}
           style={{ height: gridHeight + "px", width: "100%" }}

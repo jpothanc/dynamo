@@ -44,7 +44,7 @@ export const Combo = ({
             height: 10,
             background: "rgb(39, 44, 51)",
           }),
-          singleValue: (provided, state) => ({
+          singleValue: (provided) => ({
             ...provided,
             color: "white",
           }),

@@ -30,7 +30,7 @@ body {
   top: 0;
 }
 footer {
-  position: absolute;
+  margin-top: auto;
   bottom: 0;
   height: 20;
   left: 0;

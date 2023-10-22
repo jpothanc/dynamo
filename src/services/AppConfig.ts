@@ -1,6 +1,5 @@
-import { injectable, inject } from "inversify";
+import { injectable } from "inversify";
 import config from "../config.json";
-import { EventManager } from "./EventManager";
 import { environment, catalogue, catalogueItem } from "./Types";
 
 export interface IAppConfig {
@@ -18,15 +17,13 @@ export class AppConfig implements IAppConfig {
   private _catalogue: Map<string, catalogue> = new Map();
   private _catalogueItems: Map<string, Map<string, catalogueItem>> = new Map();
   private _environments: Map<string, environment> = new Map();
-  private _eventManager: EventManager;
 
-  constructor(@inject("EventManager") eventManager: EventManager) {
-    this._eventManager = eventManager;
+  constructor() {
     this.initCatalogues();
     this.initEnvironments();
   }
   private initCatalogues(): void {
-    const data: catalogue[] = config.app.catalogues.items;
+    const data = config.app.catalogues.items as catalogue[];
     console.log("initCatalogues");
 
     data.forEach((app) => {

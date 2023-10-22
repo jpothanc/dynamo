@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Select from "react-select";
+
 export const StyledButton = styled.button`
   background-color: ${(props) => props.$backColor || "#BF4F74"};
   color: ${(props) => props.$color || "white"};
