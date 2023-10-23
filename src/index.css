@@ -220,6 +220,11 @@ alt + done to move the linw
   font-size: 13px;
   text-transform: lowercase;
   font-weight: 500;
+  transition: transform 0.3s;
+  &:hover {
+    scale: 1.1;
+    filter: brightness(1.1);
+  }
 }
 
 .btn:hover {
