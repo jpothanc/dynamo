@@ -1,31 +1,31 @@
 import { useEventManager } from "../hooks/useEventManager";
 import { useAppConfig } from "../hooks/useAppConfig";
 import { useEffect, useState } from "react";
-
 import {
   EventType,
   globalEvent,
-  CatalogueChangeEvent,
+  CatalogueChangeEvent as CatalogueQueryEvent,
 } from "../services/AppTypes";
 
 export const Buttons = () => {
-  const [catalogue, setCatalogue] = useState("jsonplaceholder");
+  const [catalogue, setCatalogue] = useState("media");
   const eventManager = useEventManager();
   const appConfig = useAppConfig();
 
   const onButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    const eventData: CatalogueChangeEvent = {
+    const cEvent: CatalogueQueryEvent = {
       catalogue: catalogue,
       catalogueItem: (event.target as HTMLInputElement).name,
     };
-    eventManager.emitEvent(eventData);
+
+    eventManager.publishEvent("button", EventType.CATALOGUE_QUERY, cEvent);
   };
 
   useEffect(() => {
     const subscription = eventManager
-      .globalEvent()
+      .eventBus()
       .subscribe((event: globalEvent) => {
-        if (event.eventType == EventType.Catalogue_Change) {
+        if (event.eventType == EventType.CATALOGUE_CHANGE) {
           setCatalogue(event.data.value);
         }
       });

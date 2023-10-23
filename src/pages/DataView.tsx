@@ -7,7 +7,11 @@ import * as reactQuery from "@tanstack/react-query";
 import { useEventManager } from "../hooks/useEventManager";
 import { useAppConfig } from "../hooks/useAppConfig";
 import { useGlobalStates } from "../hooks/useGlobalStates";
-import { CatalogueChangeEvent } from "../services/AppTypes";
+import {
+  CatalogueChangeEvent,
+  EventType,
+  globalEvent,
+} from "../services/AppTypes";
 
 const DataView = () => {
   const [rowData, setRowData] = useState<any>([]);
@@ -25,14 +29,11 @@ const DataView = () => {
   useEffect(() => {
     console.log("first");
     const subscription = eventManager
-      .catalogueChangeEvent()
-      .subscribe((catalogue: CatalogueChangeEvent) => {
-        console.log(
-          "Catalogue Change Event Received : " +
-            catalogue.catalogue +
-            catalogue.catalogueItem
-        );
-        setCatalogue(catalogue);
+      .eventBus()
+      .subscribe((event: globalEvent) => {
+        if (event.eventType == EventType.CATALOGUE_QUERY) {
+          setCatalogue(event.data);
+        }
       });
 
     return () => {

@@ -30,7 +30,7 @@ const NavBar = () => {
       data: selectedOption,
     };
 
-    eventManager.emitGlobalEvent(eventData);
+    eventManager.publishEvent(source, eventType, selectedOption);
     //global states subscring to the global event some how does not
     //update the data, hence calling it explicitly. Will look at later.
     globalStates.onGlobalEvent(eventData);
@@ -38,9 +38,9 @@ const NavBar = () => {
 
   useEffect(() => {
     const subscription = eventManager
-      .globalEvent()
+      .eventBus()
       .subscribe((event: globalEvent) => {
-        if (event.eventType == EventType.Catalogue_Change) {
+        if (event.eventType == EventType.CATALOGUE_CHANGE) {
           setCatalogue(event.data.value);
           console.log("catalogue change" + event.data.value);
         }
@@ -80,7 +80,7 @@ const NavBar = () => {
                 onSelectionChange={(selectOption) =>
                   handleSelectionChange(
                     "catalogue",
-                    EventType.Catalogue_Change,
+                    EventType.CATALOGUE_CHANGE,
                     selectOption
                   )
                 }
@@ -94,7 +94,7 @@ const NavBar = () => {
                 onSelectionChange={(selectOption) =>
                   handleSelectionChange(
                     "catalogue",
-                    EventType.Environment_Change,
+                    EventType.ENV_CHANGE,
                     selectOption
                   )
                 }

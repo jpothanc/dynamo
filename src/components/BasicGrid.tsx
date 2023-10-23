@@ -51,10 +51,10 @@ const BasicGrid = ({ title, columnDefs, rowData, theme }: Props) => {
   // );
 
   useEffect(() => {
-    eventManager.globalEvent().subscribe((event: globalEvent) => {
+    eventManager.eventBus().subscribe((event: globalEvent) => {
       if (
-        event.eventType == EventType.Catalogue_Change ||
-        event.eventType == EventType.Environment_Change
+        event.eventType == EventType.CATALOGUE_CHANGE ||
+        event.eventType == EventType.ENV_CHANGE
       ) {
         gridRef?.current?.api.setRowData([]);
       }

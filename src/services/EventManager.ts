@@ -1,36 +1,31 @@
 import { Subject } from "rxjs";
 import { injectable } from "inversify";
-import { globalEvent, CatalogueChangeEvent } from "./AppTypes";
+import { EventType, globalEvent } from "./AppTypes";
 
 export interface IEventManager {
-  catalogueChangeEvent(): Subject<CatalogueChangeEvent>;
-  emitEvent(data: CatalogueChangeEvent): void;
-  globalEvent(): Subject<any>;
-  emitGlobalEvent(data: globalEvent): void;
+  eventBus(): Subject<any>;
+  publishEvent(source: string, eventType: EventType, eventData: any): void;
 }
 
 @injectable()
 export class EventManager implements IEventManager {
-  private _catalogueEventSubject = new Subject<CatalogueChangeEvent>();
-  private _globalEventSubject = new Subject<globalEvent>();
+  private _eventBus = new Subject<globalEvent>();
 
   constructor() {
     console.log("EventManager Initialized");
   }
-  globalEvent(): Subject<globalEvent> {
-    return this._globalEventSubject;
+  eventBus(): Subject<globalEvent> {
+    return this._eventBus;
   }
-
-  emitGlobalEvent(data: globalEvent): void {
-    this._globalEventSubject.next(data);
+  publishInternal(data: globalEvent): void {
+    this._eventBus.next(data);
   }
-
-  catalogueChangeEvent(): Subject<CatalogueChangeEvent> {
-    return this._catalogueEventSubject;
-  }
-
-  emitEvent(data: CatalogueChangeEvent): void {
-    console.log("emitEvent");
-    this._catalogueEventSubject.next(data);
+  publishEvent(source: string, eventType: EventType, eventData: any): void {
+    var globalEvent: globalEvent = {
+      source: source,
+      eventType: eventType,
+      data: eventData,
+    };
+    this._eventBus.next(globalEvent);
   }
 }

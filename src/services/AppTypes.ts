@@ -28,8 +28,9 @@ export type CatalogueChangeEvent = {
   catalogueItem: string;
 };
 export enum EventType {
-  Environment_Change = 1,
-  Catalogue_Change = 2,
+  ENV_CHANGE = 1,
+  CATALOGUE_CHANGE = 2,
+  CATALOGUE_QUERY = 3,
 }
 
 export type globalEvent = {

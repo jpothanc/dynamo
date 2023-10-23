@@ -13,7 +13,7 @@ const About = () => {
             <br></br>
             <br></br>
             Easily switch between development (dev), user acceptance testing
-            (UAT), and production environments. Effortlessly connects to your
+            (UAT), and production environments. Effortlessly connect to your
             configured JSON APIs, empowering you to view, and analyze data from
             various sources with unparalleled ease.
             <br></br>

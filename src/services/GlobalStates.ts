@@ -22,15 +22,15 @@ export class GlobalStates implements IGlobalStates {
     this._catalogue = "media";
     this._environment = "development";
     this._eventManager = eventManager;
-    this._eventManager.globalEvent().subscribe(this.onGlobalEvent);
+    this._eventManager.eventBus().subscribe(this.onGlobalEvent);
   }
 
   onGlobalEvent(event: globalEvent): void {
     switch (event.eventType) {
-      case EventType.Catalogue_Change:
+      case EventType.CATALOGUE_CHANGE:
         this._catalogue = event.data.value;
         break;
-      case EventType.Environment_Change:
+      case EventType.ENV_CHANGE:
         this._environment = event.data.value;
         break;
       default:
