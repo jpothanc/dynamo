@@ -1,10 +1,12 @@
 {
   "app": {
+    "supportEmail": "support@dynamo.com",
+    "supportNumber": "1-800922-04444",
     "theme": "ag-theme-alpine-dark",
     "catalogues": {
       "items": [
         {
-          "name": "jsonplaceholder",
+          "name": "media",
           "description": "todo",
           "active": true,
           "environments": [
@@ -17,44 +19,51 @@
             {
               "url": "todos",
               "name": "todo",
-              "color": "#0066cc"
+              "color": "#F57C00"
             },
             {
               "url": "posts",
               "name": "posts",
-              "color": "#145214"
+              "color": "#009688"
             },
             {
               "url": "comments",
               "name": "comments",
-              "color": "#990000"
+              "color": "#AB47BC"
             }
           ]
         },
         {
-          "name": "aggrid",
-          "description": "aggrid api",
+          "name": "trading",
+          "description": "Trading Catalogues",
           "active": true,
           "environments": [
             {
               "name": "development",
-              "baseurl": "https://www.ag-grid.com/example-assets/"
+              "baseurl": "https://data-store.azurewebsites.net/api/v1/data/query?"
             },
             {
               "name": "uat",
-              "baseurl": "https://www.ag-grid.com/example-assets/"
+              "baseurl": "https://data-store.azurewebsites.net/api/v1/data/query?"
             },
             {
               "name": "production",
-              "baseurl": "https://www.ag-grid.com/example-assets/"
+              "baseurl": "https://data-store.azurewebsites.net/api/v1/data/query?"
             }
           ],
 
           "catalogueItems": [
             {
-              "url": "row-data.json",
-              "name": "cars",
-              "color": "#0066cc"
+              "url": "catalogue=Trading&catalogueItem=Users",
+              "name": "users",
+              "color": "#2E7D32",
+              "source": "result"
+            },
+            {
+              "url": "catalogue=Trading&catalogueItem=Desks",
+              "name": "desks",
+              "color": "#EC407A",
+              "source": "result"
             }
           ]
         }

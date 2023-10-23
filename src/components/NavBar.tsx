@@ -8,6 +8,8 @@ import { useEventManager } from "../hooks/useEventManager";
 import { useGlobalStates } from "../hooks/useGlobalStates";
 import { SingleValue } from "react-select";
 import { useEffect, useState } from "react";
+import { FaRegSun } from "react-icons/fa6";
+import config from "../config.json";
 
 const NavBar = () => {
   const [catalogue, setCatalogue] = useState("jsonplaceholder");
@@ -102,11 +104,11 @@ const NavBar = () => {
             <div className="support">
               <section className="phone">
                 <i className="fa fa-phone icon" aria-hidden="true"></i>
-                1-800922-04444
+                {config.app.supportNumber}
               </section>
               <section className="email">
                 <i className="fa fa-envelope icon" aria-hidden="true"></i>
-                support@dynamo.com
+                {config.app.supportEmail}
               </section>
             </div>
           </div>
@@ -116,7 +118,7 @@ const NavBar = () => {
           <div className="bottom-bar__content">
             <div className="banner">
               <a href="#" className="logo">
-                <img src="/vite.svg" alt="logo" className="logo__img" />
+                <FaRegSun className="logo__img" size="32px" />
                 <span className="logo__text">Dynamo</span>
               </a>
             </div>

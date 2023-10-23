@@ -19,7 +19,7 @@ export class GlobalStates implements IGlobalStates {
   constructor(
     @inject("EventManager") eventManager: EventManager.IEventManager
   ) {
-    this._catalogue = "jsonplaceholder";
+    this._catalogue = "media";
     this._environment = "development";
     this._eventManager = eventManager;
     this._eventManager.globalEvent().subscribe(this.onGlobalEvent);

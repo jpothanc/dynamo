@@ -37,7 +37,7 @@ export const Buttons = () => {
 
   return (
     <>
-      <div>
+      <div className="btn-container">
         {appConfig.getCatalogueItems(catalogue)?.map((key) => {
           var item = appConfig.getCatalogueItem(catalogue, key);
           return (

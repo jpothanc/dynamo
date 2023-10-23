@@ -69,7 +69,7 @@ const DataView = () => {
         );
         return helperJs
           .wait(1)
-          .then(() => helperJs.getData(env?.baseurl, item?.url));
+          .then(() => helperJs.getData(env?.baseurl, item?.url, item?.source));
       }
     },
   });

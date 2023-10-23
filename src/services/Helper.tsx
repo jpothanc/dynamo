@@ -16,13 +16,16 @@ export function toColumnDefs(cols: string[]): any {
 
 export async function getData(
   baseurl: string | undefined,
-  url: string | undefined
+  url: string | undefined,
+  source: string | undefined
 ): Promise<any> {
   console.log("Querying:" + baseurl + url);
   if (baseurl == undefined) throw new Error("baseurl not defined.");
   if (url == undefined) throw new Error("url not defined.");
 
-  return await fetch(baseurl + url).then((response) => response.json());
+  var data = await fetch(baseurl + url).then((response) => response.json());
+  if (source == "result") return data.result;
+  return data;
 }
 
 export function wait(duration: number) {
