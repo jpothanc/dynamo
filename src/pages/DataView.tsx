@@ -1,10 +1,9 @@
 import BasicGrid from "../components/BasicGrid";
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+//import { useLocation } from "react-router-dom";
 import config from "../config.json";
 import * as helperJs from "../services/Helper";
 import * as reactQuery from "@tanstack/react-query";
-import { Subscription } from "rxjs";
 import { useEventManager } from "../hooks/useEventManager";
 import { useAppConfig } from "../hooks/useAppConfig";
 import { useGlobalStates } from "../hooks/useGlobalStates";
@@ -16,27 +15,25 @@ const DataView = () => {
   const [catalogue, setCatalogue] = useState<CatalogueChangeEvent | undefined>(
     undefined
   );
-  const [subscription, setsubscription] = useState<Subscription>();
+
   const eventManager = useEventManager();
   const appConfig = useAppConfig();
   const globalStates = useGlobalStates();
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
+  //const location = useLocation();
+  //const queryParams = new URLSearchParams(location.search);
 
   useEffect(() => {
     console.log("first");
-    setsubscription(
-      eventManager
-        .catalogueChangeEvent()
-        .subscribe((catalogue: CatalogueChangeEvent) => {
-          console.log(
-            "Catalogue Change Event Received : " +
-              catalogue.catalogue +
-              catalogue.catalogueItem
-          );
-          setCatalogue(catalogue);
-        })
-    );
+    const subscription = eventManager
+      .catalogueChangeEvent()
+      .subscribe((catalogue: CatalogueChangeEvent) => {
+        console.log(
+          "Catalogue Change Event Received : " +
+            catalogue.catalogue +
+            catalogue.catalogueItem
+        );
+        setCatalogue(catalogue);
+      });
 
     return () => {
       subscription?.unsubscribe();
@@ -66,7 +63,10 @@ const DataView = () => {
           catalogue?.catalogue,
           catalogue?.catalogueItem
         );
-        var env = appConfig.getEnvironment(globalStates.getEnvironment());
+        var env = appConfig.getEnvironment(
+          globalStates.getCatalogue(),
+          globalStates.getEnvironment()
+        );
         return helperJs
           .wait(1)
           .then(() => helperJs.getData(env?.baseurl, item?.url));
@@ -92,7 +92,7 @@ const DataView = () => {
 
   if (isLoading) return "Loading...";
   if (error) {
-    console.log(error.message);
+    console.log("Error Loading...");
     return <div></div>;
   }
 

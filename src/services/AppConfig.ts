@@ -7,76 +7,71 @@ export interface IAppConfig {
   getCatalogueItems(catalogue: string): string[] | undefined;
   getCatalogues(): string[];
 
-  getEnvironments(): environment[];
-  getEnvironmentNames(): string[];
-  getEnvironment(name: string): environment | undefined;
+  getEnvironments(catalogue: string): environment[];
+  getEnvironment(atalogue: string, name: string): environment | undefined;
 }
 
 @injectable()
 export class AppConfig implements IAppConfig {
   private _catalogue: Map<string, catalogue> = new Map();
   private _catalogueItems: Map<string, Map<string, catalogueItem>> = new Map();
-  private _environments: Map<string, environment> = new Map();
+  private _catalogueEnvironments: Map<string, Map<string, environment>> =
+    new Map();
 
   constructor() {
     this.initCatalogues();
-    this.initEnvironments();
   }
   private initCatalogues(): void {
     const data = config.app.catalogues.items as catalogue[];
     console.log("initCatalogues");
 
-    data.forEach((app) => {
-      if (!this._catalogue.has(app.name) && app.active) {
-        this._catalogue.set(app.name, app);
+    data.forEach((catalogue) => {
+      if (!this._catalogue.has(catalogue.name) && catalogue.active) {
+        this._catalogue.set(catalogue.name, catalogue);
 
-        app.catalogueItems?.forEach((item) => {
-          if (!this._catalogueItems.has(app.name)) {
+        catalogue.catalogueItems?.forEach((item) => {
+          if (!this._catalogueItems.has(catalogue.name)) {
             var map = new Map<string, catalogueItem>();
             map.set(item.name, item);
-            this._catalogueItems.set(app.name, map);
+            this._catalogueItems.set(catalogue.name, map);
           } else {
-            this._catalogueItems.get(app.name)?.set(item.name, item);
+            this._catalogueItems.get(catalogue.name)?.set(item.name, item);
           }
         });
 
         //override/set environments, if any
-        app.environments?.forEach((item) => {
-          if (this._environments.has(item.name)) {
-            this._environments.delete(item.name);
+        catalogue.environments?.forEach((item) => {
+          if (!this._catalogueEnvironments.has(catalogue.name)) {
+            this._catalogueEnvironments.set(catalogue.name, new Map());
           }
-          this._environments.set(item.name, item);
+          var env = this._catalogueEnvironments.get(catalogue.name);
+          if (!env?.has(item.name)) {
+            env?.set(item.name, item);
+          }
         });
       }
     });
   }
 
-  private initEnvironments(): void {
-    const data: environment[] = config.app.environments;
-
-    data.forEach((item) => {
-      if (!this._environments.has(item.name)) {
-        this._environments.set(item.name, item);
-      }
-    });
-  }
-
-  getEnvironment(name: string): environment | undefined {
-    return this._environments.has(name)
-      ? this._environments.get(name)
-      : undefined;
+  getEnvironment(catalogue: string, name: string): environment | undefined {
+    if (this._catalogueEnvironments.has(catalogue)) {
+      const environments = this._catalogueEnvironments.get(catalogue);
+      if (environments != undefined) return environments.get(name);
+    }
+    return undefined;
   }
 
   getCatalogues(): string[] {
-    return ["trading", "baskets"];
+    return [...this._catalogue.keys()];
   }
 
-  getEnvironmentNames(): string[] {
-    return [...this._environments.keys()];
-  }
-
-  getEnvironments(): environment[] {
-    return [...this._environments.values()];
+  getEnvironments(catalogue: string | undefined): environment[] {
+    if (catalogue == undefined) return [];
+    if (this._catalogueEnvironments.has(catalogue)) {
+      const environments = this._catalogueEnvironments.get(catalogue);
+      if (environments != undefined) return [...environments.values()];
+    }
+    return [];
   }
 
   getCatalogueItems(catalogue: string): string[] | undefined {

@@ -9,7 +9,7 @@ import {
 } from "../services/Types";
 
 export const Buttons = () => {
-  const [catalogue, setCatalogue] = useState("trading");
+  const [catalogue, setCatalogue] = useState("jsonplaceholder");
   const eventManager = useEventManager();
   const appConfig = useAppConfig();
 

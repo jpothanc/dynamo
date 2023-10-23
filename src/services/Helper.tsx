@@ -15,7 +15,7 @@ export function toColumnDefs(cols: string[]): any {
 }
 
 export async function getData(
-  baseurl: string,
+  baseurl: string | undefined,
   url: string | undefined
 ): Promise<any> {
   console.log("Querying:" + baseurl + url);
@@ -31,6 +31,7 @@ export function wait(duration: number) {
 
 export function getEnvOptions(environment: environment[]): selectOption[] {
   const options: selectOption[] = [];
+
   environment.forEach((item) => {
     options.push({
       value: item.name,

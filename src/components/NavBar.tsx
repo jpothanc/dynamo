@@ -7,8 +7,11 @@ import { EventType, globalEvent, selectOption } from "../services/Types";
 import { useEventManager } from "../hooks/useEventManager";
 import { useGlobalStates } from "../hooks/useGlobalStates";
 import { SingleValue } from "react-select";
+import { useEffect, useState } from "react";
 
 const NavBar = () => {
+  const [catalogue, setCatalogue] = useState("jsonplaceholder");
+
   const appConfig = useAppConfig();
   const eventManager = useEventManager();
   const globalStates = useGlobalStates();
@@ -18,6 +21,7 @@ const NavBar = () => {
     eventType: EventType,
     selectedOption: SingleValue<selectOption>
   ) => {
+    console.log("handleSelectionChange");
     var eventData: globalEvent = {
       source: source,
       eventType: eventType,
@@ -29,6 +33,21 @@ const NavBar = () => {
     //update the data, hence calling it explicitly. Will look at later.
     globalStates.onGlobalEvent(eventData);
   };
+
+  useEffect(() => {
+    const subscription = eventManager
+      .globalEvent()
+      .subscribe((event: globalEvent) => {
+        if (event.eventType == EventType.Catalogue_Change) {
+          setCatalogue(event.data.value);
+          console.log("catalogue change" + event.data.value);
+        }
+      });
+
+    return () => {
+      subscription?.unsubscribe();
+    };
+  }, []);
 
   return (
     <>
@@ -67,7 +86,7 @@ const NavBar = () => {
               <Combo
                 name="environment"
                 selectOptions={helperJs.getEnvOptions(
-                  appConfig.getEnvironments()
+                  appConfig.getEnvironments(catalogue)
                 )}
                 defaultSelectedItem={helperJs.getDefaultEnvironment()}
                 onSelectionChange={(selectOption) =>

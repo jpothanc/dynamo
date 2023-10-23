@@ -15,7 +15,7 @@ export const Combo = ({
   defaultSelectedItem,
   onSelectionChange,
 }: Props) => {
-  const options = useMemo(() => selectOptions, []);
+  const options = useMemo(() => selectOptions, [selectOptions]);
   const [selectectedItem, setSelectedItem] = useState<
     SingleValue<selectOption> | undefined
   >();

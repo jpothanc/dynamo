@@ -1,37 +1,15 @@
 {
   "app": {
     "theme": "ag-theme-alpine-dark",
-    "environments": [
-      {
-        "name": "development",
-        "baseurl": "https://jsonplaceholder.typicode1.com/"
-      },
-      {
-        "name": "uat",
-        "baseurl": "https://jsonplaceholder.typicode.com/"
-      },
-      {
-        "name": "production",
-        "baseurl": "https://jsonplaceholder.typicode.com/"
-      }
-    ],
     "catalogues": {
       "items": [
         {
-          "name": "trading",
+          "name": "jsonplaceholder",
           "description": "todo",
           "active": true,
           "environments": [
             {
               "name": "development",
-              "baseurl": "https://jsonplaceholder.typicode.com/"
-            },
-            {
-              "name": "uat",
-              "baseurl": "https://jsonplaceholder.typicode.com/"
-            },
-            {
-              "name": "production",
               "baseurl": "https://jsonplaceholder.typicode.com/"
             }
           ],
@@ -54,13 +32,28 @@
           ]
         },
         {
-          "name": "baskets",
-          "description": "todo",
+          "name": "aggrid",
+          "description": "aggrid api",
           "active": true,
+          "environments": [
+            {
+              "name": "development",
+              "baseurl": "https://www.ag-grid.com/example-assets/"
+            },
+            {
+              "name": "uat",
+              "baseurl": "https://www.ag-grid.com/example-assets/"
+            },
+            {
+              "name": "production",
+              "baseurl": "https://www.ag-grid.com/example-assets/"
+            }
+          ],
+
           "catalogueItems": [
             {
-              "url": "todos",
-              "name": "todo",
+              "url": "row-data.json",
+              "name": "cars",
               "color": "#0066cc"
             }
           ]
