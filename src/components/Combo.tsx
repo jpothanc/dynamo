@@ -42,15 +42,17 @@ export const Combo = ({
             borderColor: state.isFocused ? "red" : "rgb(164, 168, 171)",
             width: 200,
             height: 10,
-            background: "rgb(39, 44, 51)",
+            background: "black",
           }),
           singleValue: (provided) => ({
             ...provided,
             color: "white",
+            fontSize: "12px",
           }),
           menu: (provided) => ({
             ...provided,
-            color: "white",
+            fontSize: "12px",
+            color: "#A1887F",
             position: "absolute",
             top: "-10%", // Adjust this value as needed to control the distance above the input
             left: 0, // You can adjust left and right to control horizontal positioning
