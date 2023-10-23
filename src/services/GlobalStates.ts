@@ -1,6 +1,6 @@
 import { injectable, inject } from "inversify";
 import * as EventManager from "./EventManager";
-import { globalEvent, EventType } from "./Types";
+import { globalEvent, EventType } from "./AppTypes";
 
 export interface IGlobalStates {
   setCatalogue(catalogue: string): void;

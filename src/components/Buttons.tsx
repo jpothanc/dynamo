@@ -6,7 +6,7 @@ import {
   EventType,
   globalEvent,
   CatalogueChangeEvent,
-} from "../services/Types";
+} from "../services/AppTypes";
 
 export const Buttons = () => {
   const [catalogue, setCatalogue] = useState("jsonplaceholder");

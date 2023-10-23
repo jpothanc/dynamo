@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
 import config from "../config.json";
-import { environment, catalogue, catalogueItem } from "./Types";
+import { environment, catalogue, catalogueItem } from "./AppTypes";
 
 export interface IAppConfig {
   getCatalogueItem(catalogue: string, name: string): catalogueItem | undefined;

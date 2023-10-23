@@ -7,7 +7,7 @@ import * as reactQuery from "@tanstack/react-query";
 import { useEventManager } from "../hooks/useEventManager";
 import { useAppConfig } from "../hooks/useAppConfig";
 import { useGlobalStates } from "../hooks/useGlobalStates";
-import { CatalogueChangeEvent } from "../services/Types";
+import { CatalogueChangeEvent } from "../services/AppTypes";
 
 const DataView = () => {
   const [rowData, setRowData] = useState<any>([]);

@@ -3,7 +3,7 @@ import { Buttons } from "./Buttons";
 import { Combo } from "./Combo";
 import * as helperJs from "../services/Helper";
 import { useAppConfig } from "../hooks/useAppConfig";
-import { EventType, globalEvent, selectOption } from "../services/Types";
+import { EventType, globalEvent, selectOption } from "../services/AppTypes";
 import { useEventManager } from "../hooks/useEventManager";
 import { useGlobalStates } from "../hooks/useGlobalStates";
 import { SingleValue } from "react-select";
