@@ -25,6 +25,7 @@ export async function getData(
 
   var data = await fetch(baseurl + url).then((response) => response.json());
   if (source == "result") return data.result;
+  if (source == "healthCheckItems") return data.healthCheckItems;
   return data;
 }
 

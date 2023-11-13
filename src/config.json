@@ -66,6 +66,34 @@
               "source": "result"
             }
           ]
+        },
+        {
+          "name": "health-checks",
+          "description": "Health Checks",
+          "active": true,
+          "environments": [
+            {
+              "name": "development",
+              "baseurl": "https://healthcheck-ib.azurewebsites.net/api/v1/health"
+            },
+            {
+              "name": "uat",
+              "baseurl": "https://healthcheck-ib.azurewebsites.net/api/v1/health"
+            },
+            {
+              "name": "production",
+              "baseurl": "https://healthcheck-ib.azurewebsites.net/api/v1/health"
+            }
+          ],
+
+          "catalogueItems": [
+            {
+              "url": "/check",
+              "name": "health check",
+              "color": "#4CAF50",
+              "source": "healthCheckItems"
+            }
+          ]
         }
       ]
     }

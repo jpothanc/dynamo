@@ -208,7 +208,7 @@ alt + done to move the linw
 }
 .btn-container {
   display: flex;
-  column-gap: 1px;
+  column-gap: 5px;
 }
 
 .btn {
@@ -220,7 +220,7 @@ alt + done to move the linw
   font-size: 13px;
   text-transform: lowercase;
   font-weight: 500;
-  transition: transform 0.3s;
+  transition: transform 0.3s ease;
   &:hover {
     scale: 1.1;
     filter: brightness(1.1);

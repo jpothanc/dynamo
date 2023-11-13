@@ -36,6 +36,7 @@ const BasicGrid = ({ title, columnDefs, rowData, theme }: Props) => {
     function handleResize() {
       setGridHeight(window.innerHeight - offset);
       console.log("window ht" + window.innerHeight);
+
     }
 
     window.addEventListener("resize", handleResize);
