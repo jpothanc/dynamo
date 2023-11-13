@@ -20,15 +20,15 @@ These instructions will help you set up and run Dynamo on your local machine.
 
 1. Clone the repository:
 
-   ```bash
+  ```javascript
    git clone https://github.com/your-username/dynamo.git
    
 2. Navigate to the project directory:
-   ```bash
+  ```javascript
   cd dynamo
   
 3. Install dependencies:
-   ```bash
+  ```javascript
    npm install
 
 ### Configuration
