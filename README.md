@@ -25,7 +25,7 @@ These instructions will help you set up and run Dynamo on your local machine.
    
 2. Navigate to the project directory:
   ```javascript
-  cd dynamo
+    cd dynamo
   
 3. Install dependencies:
   ```javascript
