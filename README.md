@@ -22,14 +22,14 @@ These instructions will help you set up and run Dynamo on your local machine.
 
   ```javascript
    git clone https://github.com/your-username/dynamo.git
-   
+   ```
 2. Navigate to the project directory:
   cd dynamo
 
 3. Install dependencies:
   ```javascript
    npm install
-
+```
 ### Configuration
 
 1. Open the config.json file in the src directory.:
@@ -53,4 +53,4 @@ These instructions will help you set up and run Dynamo on your local machine.
        "baseurl": "https://data-store.azurewebsites.net/api/v1/data/query?"
      }
  }
-   
+```
