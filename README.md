@@ -24,13 +24,14 @@ These instructions will help you set up and run Dynamo on your local machine.
    git clone https://github.com/your-username/dynamo.git
    
 2. Navigate to the project directory:
-    cd dynamo
-  
+  cd dynamo
+
 3. Install dependencies:
   ```javascript
    npm install
 
 ### Configuration
+
 1. Open the config.json file in the src directory.:
 2. Add your JSON endpoints by updating the endpoints array:
 ```javascript
