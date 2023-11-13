@@ -38,37 +38,37 @@ These instructions will help you set up and run Dynamo on your local machine.
 2. Add your JSON endpoints by updating the endpoints array:
 ```javascript
  {
-          "name": "trading",
-          "description": "Trading Catalogues",
-          "active": true,
-          "environments": [
-            {
-              "name": "development",
-              "baseurl": "https://datastore.dev.net/api/v1/data/query?"
-            },
-            {
-              "name": "uat",
-              "baseurl": "https://datastore.uat.net/api/v1/data/query?"
-            },
-            {
-              "name": "production",
-              "baseurl": "https://datastore.prod.net/api/v1/data/query?"
-            }
-          ],
+    "name": "trading",
+    "description": "Trading Catalogues",
+    "active": true,
+    "environments": [
+      {
+        "name": "development",
+        "baseurl": "https://datastore.dev.net/api/v1/data/query?"
+      },
+      {
+        "name": "uat",
+        "baseurl": "https://datastore.uat.net/api/v1/data/query?"
+      },
+      {
+        "name": "production",
+        "baseurl": "https://datastore.prod.net/api/v1/data/query?"
+      }
+    ],
 
-          "catalogueItems": [
-            {
-              "url": "catalogue=Trading&catalogueItem=Users",
-              "name": "users",
-              "color": "#2E7D32",
-              "source": "result"
-            },
-            {
-              "url": "catalogue=Trading&catalogueItem=Desks",
-              "name": "desks",
-              "color": "#EC407A",
-              "source": "result"
-            }
-          ]
-        }
+    "catalogueItems": [
+      {
+        "url": "catalogue=Trading&catalogueItem=Users",
+        "name": "users",
+        "color": "#2E7D32",
+        "source": "result"
+      },
+      {
+        "url": "catalogue=Trading&catalogueItem=Desks",
+        "name": "desks",
+        "color": "#EC407A",
+        "source": "result"
+      }
+    ]
+}
 ```
