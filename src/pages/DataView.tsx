@@ -1,8 +1,8 @@
 import BasicGrid from "../components/BasicGrid";
 import { useState, useEffect } from "react";
 //import { useLocation } from "react-router-dom";
-import config from "../config.json";
-import * as helperJs from "../services/Helper";
+import config from "../config/config.json";
+import * as helperJs from "../lib/helper";
 import * as reactQuery from "@tanstack/react-query";
 import { useEventManager } from "../hooks/useEventManager";
 import { useAppConfig } from "../hooks/useAppConfig";
@@ -11,7 +11,7 @@ import {
   CatalogueChangeEvent,
   EventType,
   globalEvent,
-} from "../services/AppTypes";
+} from "../types/appTypes";
 
 const DataView = () => {
   const [rowData, setRowData] = useState<any>([]);

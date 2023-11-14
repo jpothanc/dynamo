@@ -5,7 +5,7 @@ import {
   EventType,
   globalEvent,
   CatalogueChangeEvent as CatalogueQueryEvent,
-} from "../services/AppTypes";
+} from "../types/appTypes";
 
 export const Buttons = () => {
   const [catalogue, setCatalogue] = useState("media");

@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
 import { Buttons } from "./Buttons";
 import { Combo } from "./Combo";
-import * as helperJs from "../services/Helper";
+import * as helperJs from "../lib/helper";
 import { useAppConfig } from "../hooks/useAppConfig";
-import { EventType, globalEvent, selectOption } from "../services/AppTypes";
+import { EventType, globalEvent, selectOption } from "../types/appTypes";
 import { useEventManager } from "../hooks/useEventManager";
 import { useGlobalStates } from "../hooks/useGlobalStates";
 import { SingleValue } from "react-select";
 import { useEffect, useState } from "react";
 import { FaRegSun } from "react-icons/fa6";
-import config from "../config.json";
+import config from "../config/config.json";
 
 const NavBar = () => {
   const [catalogue, setCatalogue] = useState("jsonplaceholder");

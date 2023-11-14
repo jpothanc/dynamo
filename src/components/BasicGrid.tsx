@@ -4,7 +4,7 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import "ag-grid-community/styles/ag-theme-material.css";
 import { useEventManager } from "../hooks/useEventManager";
-import { EventType, globalEvent } from "../services/AppTypes";
+import { EventType, globalEvent } from "../types/appTypes";
 
 type Props = {
   title: string;
@@ -36,7 +36,6 @@ const BasicGrid = ({ title, columnDefs, rowData, theme }: Props) => {
     function handleResize() {
       setGridHeight(window.innerHeight - offset);
       console.log("window ht" + window.innerHeight);
-
     }
 
     window.addEventListener("resize", handleResize);

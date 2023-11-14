@@ -1,6 +1,6 @@
 import { Subject } from "rxjs";
 import { injectable } from "inversify";
-import { EventType, globalEvent } from "./AppTypes";
+import { EventType, globalEvent } from "../types/appTypes";
 
 export interface IEventManager {
   eventBus(): Subject<any>;
